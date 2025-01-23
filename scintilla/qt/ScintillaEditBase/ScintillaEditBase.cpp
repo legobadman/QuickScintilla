@@ -138,6 +138,27 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
 
 	// TODO: performance optimizations... ?
 	//setRenderTarget(QQuickPaintedItem::FramebufferObject);
+
+	//send(SCI_SETMARGINS, 24, 0);
+	send(SCI_SETMARGINTYPEN, SC_MARGIN_NUMBER, SC_MARGIN_NUMBER);
+	send(SCI_SETMARGINWIDTHN, SC_MARGIN_NUMBER, 25);
+
+	const int style = STYLE_LINENUMBER;
+
+	const QColor fgClr(108, 119, 135);
+	uptr_t fgParam = (fgClr.blue() << 16) | (fgClr.green() << 8) | fgClr.red();
+	send(SCI_STYLESETFORE, style, fgParam);
+
+	send(SCI_SETMARGINLEFT, 0, 25);
+	send(SCI_SETMARGINRIGHT, 0, 5);
+
+	const QColor bgClr(225, 225, 225);
+    uptr_t bgParam = (bgClr.blue() << 16) | (bgClr.green() << 8) | bgClr.red();
+    send(SCI_STYLESETBACK, style, bgParam);
+
+	QFont font = QGuiApplication::font();
+	font.setPointSize(12);
+	setStylesFont(font, style);
 }
 
 ScintillaEditBase::~ScintillaEditBase() = default;

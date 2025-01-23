@@ -250,12 +250,12 @@ protected:
 #endif
 
 private:
+	void setStylesFont(const QFont& f, int style);
 #ifdef PLAT_QT_QML
 	QString getText() const;
 	void setText(const QString & txt);
 	QFont getFont() const { return aFont; }
 	void setFont(const QFont & newFont);
-	void setStylesFont(const QFont &f, int style);
 	int getLogicalWidth() const;
 	int getLogicalHeight() const;
 	int getCharHeight() const;
@@ -304,5 +304,7 @@ private:
 	void DrawImeIndicator(int indicator, int len);
 	static Scintilla::KeyMod ModifiersOfKeyboard();
 };
+
+Q_DECLARE_METATYPE(Scintilla::NotificationData)
 
 #endif /* SCINTILLAEDITBASE_H */
