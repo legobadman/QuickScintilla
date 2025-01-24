@@ -1,4 +1,4 @@
-//
+﻿//
 //          Copyright (c) 1990-2011, Scientific Toolworks, Inc.
 //
 // The License.txt file describes the conditions under which this software may be distributed.
@@ -74,6 +74,7 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
 #endif
     //setFiltersChildMouseEvents(false);
     //grabMouse();
+    setKeepMouseGrab(true);      //在拖选文本时，会被上层的Flickable捕获，所以要设置这个属性防止被grab
     setFlags(QQuickItem::ItemAcceptsInputMethod | QQuickItem::ItemIsFocusScope | QQuickItem::ItemHasContents | QQuickItem::ItemAcceptsDrops | QQuickItem::ItemClipsChildrenToShape);
 #endif
 
