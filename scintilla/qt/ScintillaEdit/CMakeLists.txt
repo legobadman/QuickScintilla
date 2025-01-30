@@ -45,6 +45,7 @@ set(SOURCE_FILES
     ../../src/CaseConvert.cxx
     ../../src/CallTip.cxx
     ../../src/AutoComplete.cxx
+    ../../src/UndoHistory.cxx
 )
 
 # Create code for QObjects
@@ -73,4 +74,5 @@ target_link_libraries(ScintillaEdit
     Qt5::Core
     Qt5::Widgets
     Qt5::Gui
+    lexilla
 )

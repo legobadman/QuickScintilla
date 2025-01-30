@@ -197,7 +197,7 @@ public:
 	static std::unique_ptr<Surface> Allocate(Scintilla::Technology technology);
 
     virtual void Init(bool /*signatureFlag*/, Scintilla::Internal::PainterID /*pid*/) { assert(false); }     // this method is only needed for QtQuick/QML support and must be overwritten in a derived class !
-    virtual void Init(WindowID wid)=0;
+	virtual void Init(WindowID wid)=0;
 	virtual void Init(SurfaceID sid, WindowID wid)=0;
 	virtual std::unique_ptr<Surface> AllocatePixMap(int width, int height)=0;
 

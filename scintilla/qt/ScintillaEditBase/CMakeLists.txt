@@ -5,6 +5,7 @@ set(INCLUDE_FILES
     PlatQt.h
     ScintillaQt.h
     ScintillaEditBase.h
+    ZfxLexer.h
     ../../src/XPM.h
     ../../src/ViewStyle.h
     ../../src/UniConversion.h
@@ -43,6 +44,7 @@ set(SOURCE_FILES
     PlatQt.cpp
     ScintillaQt.cpp
     ScintillaEditBase.cpp
+    ZfxLexer.cpp
     ../../src/XPM.cxx
     ../../src/ViewStyle.cxx
     ../../src/UniqueString.cxx
@@ -75,6 +77,7 @@ set(SOURCE_FILES
     ../../src/CaseConvert.cxx
     ../../src/CallTip.cxx
     ../../src/AutoComplete.cxx
+    ../../src/UndoHistory.cxx
 )
 
 # Create code for QObjects
@@ -103,4 +106,5 @@ target_link_libraries(ScintillaEditBase
     Qt5::Widgets
     Qt5::Gui
     Qt5::Quick
+    lexilla
 )

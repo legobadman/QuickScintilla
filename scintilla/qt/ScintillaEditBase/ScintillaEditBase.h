@@ -250,6 +250,7 @@ protected:
 #endif
 
 private:
+	void initSyntax();
 	void setStylesFont(const QFont& f, int style);
 #ifdef PLAT_QT_QML
 	QString getText() const;

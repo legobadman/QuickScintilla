@@ -17,6 +17,9 @@
 
 #include "Position.h"
 
+#include "Lexilla.h"
+#include "SciLexer.h"
+
 #include <QApplication>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QInputContext>
@@ -160,9 +163,46 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
 	QFont font = QGuiApplication::font();
 	font.setPointSize(12);
 	setStylesFont(font, style);
+
+	initSyntax();
+
 }
 
 ScintillaEditBase::~ScintillaEditBase() = default;
+
+static uptr_t getColorParam(const QColor& clr) {
+	uptr_t param = (clr.blue() << 16) | (clr.green() << 8) | clr.red();
+	return param;
+}
+
+void ScintillaEditBase::initSyntax()
+{
+	ILexer5* pLexer = CreateLexer("cpp");
+	send(SCI_SETILEXER, 0, reinterpret_cast<sptr_t>(pLexer));
+	send(SCI_SETKEYWORDS, 0, (sptr_t)"int char for if else");
+
+ //   const QColor fgClr(0, 0, 0);
+ //   uptr_t fgParam = (fgClr.blue() << 16) | (fgClr.green() << 8) | fgClr.red();
+	//send(SCI_STYLESETFORE, STYLE_DEFAULT, fgParam); // 设置默认前景色
+
+ //   const QColor bgClr(255, 255, 255);
+ //   uptr_t bgParam = (bgClr.blue() << 16) | (bgClr.green() << 8) | bgClr.red();
+	//send(SCI_STYLESETBACK, STYLE_DEFAULT, bgParam); // 设置默认背景色
+
+ //   const QColor cgClr(255, 0, 0);
+ //   uptr_t cgParam = (cgClr.blue() << 16) | (cgClr.green() << 8) | cgClr.red();
+	//send(SCI_STYLESETFORE, 1, cgParam); // 自定义样式 1 的前景色
+
+// 设置关键词颜色（如 C++ 的关键字）
+	send(SCI_STYLESETFORE, SCE_C_WORD, getColorParam(QColor(0, 0, 255))); // 关键字
+	send(SCI_STYLESETFORE, SCE_C_STRING, getColorParam(QColor(163, 21, 21))); // 字符串
+	send(SCI_STYLESETFORE, SCE_C_COMMENT, getColorParam(QColor(0, 128, 0))); // 注释
+	send(SCI_STYLESETFORE, SCE_C_NUMBER, getColorParam(QColor(250,0,0)));
+	send(SCI_STYLESETFORE, SCE_C_CHARACTER, getColorParam(QColor(163, 21, 21)));
+	//send(SCI_STYLESETFORE, SCE_C_IDENTIFIER, getColorParam(QColor(0,255,0)));
+
+	//pLexer->WordListSet(0, "int");
+}
 
 sptr_t ScintillaEditBase::send(
 	unsigned int iMessage,
@@ -1239,6 +1279,17 @@ void ScintillaEditBase::notifyParent(NotificationData scn)
 			break;
 
 		case Notification::CharAdded:
+			if (scn.ch == 'c') {
+                send(SCI_AUTOCSHOW, 0,
+                    sptr_t(
+                        "close "
+                        "eof "
+                        "good "
+                        "open "
+                        "rdbuf "
+                        "size"
+                    ));
+			}
 			emit charAdded(scn.ch);
 			break;
 
