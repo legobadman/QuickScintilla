@@ -15,6 +15,7 @@
 // PLAT_WX is wxWindows on any supported platform
 // PLAT_TK = Tcl/TK on Linux or Win32
 
+#include <string>
 #include <cassert>
 
 #define PLAT_GTK 0
