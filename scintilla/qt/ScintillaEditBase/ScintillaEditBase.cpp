@@ -153,7 +153,7 @@ ScintillaEditBase::ScintillaEditBase(QWidget *parent)
     uptr_t fgParam = (fgClr.blue() << 16) | (fgClr.green() << 8) | fgClr.red();
     send(SCI_STYLESETFORE, style, fgParam);
 
-    send(SCI_SETMARGINLEFT, 0, 25);
+    send(SCI_SETMARGINLEFT, 0, 15);
     send(SCI_SETMARGINRIGHT, 0, 5);
 
     const QColor bgClr(225, 225, 225);
@@ -183,15 +183,19 @@ void ScintillaEditBase::initSyntax()
     send(SCI_SETKEYWORDS, 0, (sptr_t)"int char for if else");
 
     send(SCI_STYLESETFONT, STYLE_DEFAULT, (sptr_t)("Consolas"));
-    send(SCI_STYLESETSIZE, STYLE_DEFAULT, 12); // 设置字号为12
+    send(SCI_STYLESETSIZE, STYLE_DEFAULT, 10); // 设置字号为12
 
     send(SCI_SETINDENT, 4, 0); // 设置缩进宽度为 4
     send(SCI_SETTABWIDTH, 4, 0); // 设置 Tab 键等于 4 个空格
     send(SCI_SETUSETABS, 0, 0); // 设置为使用空格代替 Tab
 
+    // 设置额外顶部间距，由于字体本身带有ascent值，为了缩短行高，只能负值抵消
+    send(SCI_SETEXTRAASCENT, -4, 0);
+    // 设置额外底部间距
+    send(SCI_SETEXTRADESCENT, -4, 0);
+
+    // 应用样式到所有行
     send(SCI_STYLECLEARALL, 0, 0);
-
-
 
  //   const QColor fgClr(0, 0, 0);
  //   uptr_t fgParam = (fgClr.blue() << 16) | (fgClr.green() << 8) | fgClr.red();
