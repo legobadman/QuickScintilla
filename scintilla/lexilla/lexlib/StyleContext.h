@@ -8,6 +8,8 @@
 #ifndef STYLECONTEXT_H
 #define STYLECONTEXT_H
 
+#include <string>
+
 namespace Lexilla {
 
 // All languages handled so far can treat all characters >= 0x80 as one class

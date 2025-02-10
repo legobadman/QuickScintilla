@@ -8,6 +8,8 @@
 #ifndef WORDLIST_H
 #define WORDLIST_H
 
+#include <string>
+
 namespace Lexilla {
 
 /**
